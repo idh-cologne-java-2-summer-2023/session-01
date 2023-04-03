@@ -67,11 +67,7 @@ public class StringList {
 	 * @param s     String, durch den ersetzt werden soll
 	 */
 	public void set(int index, String s) {
-		if (isIndexValid(index))
-			data[index] = s;
-		else {
-			System.err.println("Invalid index.");
-		}
+		// TODO: Implement!
 	}
 
 	/**
@@ -113,10 +109,6 @@ public class StringList {
 	 * @return Index des gesuchten Strings, oder -1 wenn String nicht enthalten ist.
 	 */
 	public int indexOf(String s) {
-//		for (int i = 0; i < data.length; i++) {
-//			String irgendwas = data[i];
-//		}
-
 		for (int i = 0; i < data.length; i++) {
 			// for (String irgendwas : data) {
 			if (s.equals(data[i])) {
@@ -167,13 +159,6 @@ public class StringList {
 	 * Kehrt die gesamte Liste um (Reihenfolge der Strings)
 	 */
 	public void reverseList() {
-		// String[] newArray = new String[this.nextInsertPosition];
-		String[] newArray = new String[this.data.length];
-		// int j = 0;
-		for (int i = data.length - 1; i > 0; i--) {
-			newArray[data.length - i] = data[i];
-			// j++;
-		}
 		// TODO: implementieren!
 	}
 
@@ -196,7 +181,8 @@ public class StringList {
 	 * @return Anzahl der Elemente dieser Liste
 	 */
 	public int size() {
-		return this.nextInsertPosition;
+		// TODO: Implement
+		return -1;
 	}
 
 	/*
