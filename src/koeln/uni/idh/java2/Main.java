@@ -2,9 +2,9 @@ package koeln.uni.idh.java2;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// neue StringList erzeugen
-		StringList list = new StringList();
+		StringList list = new StringList(10);
 
 		// Größe der Liste auf der Konsole ausgeben
 		System.out.println("Größe der Liste: " + list.size());
@@ -20,18 +20,16 @@ public class Main {
 		list.add("Acht");
 		list.add("Neun");
 		list.add("Zehn");
-
-		// wieder die Größe der Liste ausgeben
-		System.out.println("Größe der Liste: " + list.size());
-
-		// einen String aus der Mitte löschen
-		list.remove(5);
-
-		// wieder die Größe der Liste ausgeben
-		System.out.println("Größe der Liste: " + list.size());
-
-		// alle Strings der Liste ausgeben
+		list.add("Elf");
 		list.print();
+		System.out.println("Größe der Liste: " + list.size());
+
+		list.remove("Fünf");
+		list.print();
+		System.out.println("Größe der Liste: " + list.size());
+		
+		StringList l2 = list.getSubList(3, 8);
+		l2.print();
 	}
 
 }

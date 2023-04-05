@@ -27,6 +27,13 @@ public class StringList {
 		this.data = new String[initialSize];
 		this.nextInsertPosition = 0;
 	}
+	
+	public StringList() {
+		this.data = new String[10];
+		this.nextInsertPosition = 0;
+		
+	}
+	
 
 	/**
 	 * Ein Konstruktor, dem man ein bereits bestehendes String-Array übergeben kann,
@@ -37,15 +44,6 @@ public class StringList {
 	public StringList(String[] initialArray) {
 		this.data = initialArray;
 		this.nextInsertPosition = initialArray.length;
-	}
-
-	/**
-	 * Ein Konstruktor, der ganz ohne Argumente auskommt. Hier wird einfach eine
-	 * festgelegte Anfangs-Länge des Arrays verwendet, indem ein anderer Konstruktor
-	 * mit dem entsprechenden Wert aufgerufen wird.
-	 */
-	public StringList() {
-		this(10); // das Array soll zu Beginn die Länge 10 haben
 	}
 
 	/**
@@ -65,15 +63,17 @@ public class StringList {
 	 * 
 	 * @param index Index des zu ersetzenden Elements
 	 * @param s     String, durch den ersetzt werden soll
+	 * @throws Exception 
 	 */
-	public void set(int index, String s) {
+	public void set(int index, String s) throws Exception {
 		if (isIndexValid(index))
 			data[index] = s;
 		else {
-			System.err.println("Invalid index.");
+			throw new Exception("Invalid index");
 		}
 	}
 
+	
 	/**
 	 * Diese Methode entfernt einen String aus der Liste. Hierbei sollen keine
 	 * Lücken im internen Array entstehen! Es kann natürlich sein, dass es mehrere
@@ -90,7 +90,16 @@ public class StringList {
 	 * @param toRemove Der String, der entfernt werden soll
 	 */
 	public void remove(String toRemove) {
-		// TODO: implementieren!
+		for (int i = 0; i < this.data.length; i++) {
+			// we identify the position that needs to be removed
+			if (data[i].equals(toRemove)) {
+				// ... and let our other function handle the rest
+				remove(i);
+				// ensures that we only remove the string once, even if the list 
+				// contains it multiple times.
+				break;
+			}
+		}
 	}
 
 	/**
@@ -100,7 +109,13 @@ public class StringList {
 	 * @param index
 	 */
 	public void remove(int index) {
-		// TODO: implementieren!
+		// we start the for-loop at the element we want to remove
+		for (int i = index; i < this.data.length-1; i++) {
+			// we overwrite each element with its successor
+			data[i] = data[i+1];
+		}
+		// we reduce the next position by one
+		nextInsertPosition--;
 	}
 
 	/**
@@ -113,10 +128,6 @@ public class StringList {
 	 * @return Index des gesuchten Strings, oder -1 wenn String nicht enthalten ist.
 	 */
 	public int indexOf(String s) {
-//		for (int i = 0; i < data.length; i++) {
-//			String irgendwas = data[i];
-//		}
-
 		for (int i = 0; i < data.length; i++) {
 			// for (String irgendwas : data) {
 			if (s.equals(data[i])) {
@@ -163,19 +174,6 @@ public class StringList {
 		System.out.println(sb.toString());
 	}
 
-	/**
-	 * Kehrt die gesamte Liste um (Reihenfolge der Strings)
-	 */
-	public void reverseList() {
-		// String[] newArray = new String[this.nextInsertPosition];
-		String[] newArray = new String[this.data.length];
-		// int j = 0;
-		for (int i = data.length - 1; i > 0; i--) {
-			newArray[data.length - i] = data[i];
-			// j++;
-		}
-		// TODO: implementieren!
-	}
 
 	/**
 	 * Gibt eine neue Instanz von StringList mit den Elementen von "start" bis "end"
@@ -186,8 +184,11 @@ public class StringList {
 	 * @return
 	 */
 	public StringList getSubList(int start, int end) {
-		// TODO: implementieren!
-		return null;
+		StringList newList = new StringList(end-start);
+		for (int i = start; i < end; i++) {
+			newList.add(data[i]);
+		}
+		return newList;
 	}
 
 	/**
